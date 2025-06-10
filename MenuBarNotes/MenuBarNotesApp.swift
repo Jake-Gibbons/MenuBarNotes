@@ -28,5 +28,11 @@ struct MenuBarNotesApp: App {
             ContentView()
         }
         .modelContainer(sharedModelContainer)
+
+        MenuBarExtra("Quick Note", systemImage: "square.and.pencil") {
+            QuickNotePopover()
+        }
+        .menuBarExtraStyle(.window)
+        .modelContainer(sharedModelContainer)
     }
 }
