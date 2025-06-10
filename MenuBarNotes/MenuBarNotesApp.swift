@@ -47,6 +47,7 @@ struct MenuBarNotesApp: App {
             }
             Divider()
             Button("Quit") { NSApp.terminate(nil) }
+
         }
         .menuBarExtraStyle(.window)
         .modelContainer(sharedModelContainer)

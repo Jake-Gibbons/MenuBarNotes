@@ -29,6 +29,7 @@ struct QuickNotePopover: View {
         modelContext.insert(item)
         text = ""
         dismiss()
+
     }
 }
 
