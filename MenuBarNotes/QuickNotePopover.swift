@@ -3,8 +3,8 @@ import SwiftData
 
 struct QuickNotePopover: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var text: String = ""
-    var onClose: (() -> Void)? = nil
 
     var body: some View {
         VStack(alignment: .trailing) {
@@ -28,7 +28,8 @@ struct QuickNotePopover: View {
         let item = Item(timestamp: Date(), text: trimmed)
         modelContext.insert(item)
         text = ""
-        onClose?()
+        dismiss()
+
     }
 }
 
