@@ -17,9 +17,22 @@ struct ContentView: View {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        VStack(alignment: .leading) {
+                            Text(item.text)
+                                .font(.body)
+                            Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding()
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        VStack(alignment: .leading) {
+                            Text(item.text)
+                                .lineLimit(1)
+                            Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -27,7 +40,7 @@ struct ContentView: View {
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
             .toolbar {
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: { addItem() }) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
@@ -37,9 +50,9 @@ struct ContentView: View {
         }
     }
 
-    private func addItem() {
+    private func addItem(text: String = "New Note") {
         withAnimation {
-            let newItem = Item(timestamp: Date())
+            let newItem = Item(timestamp: Date(), text: text)
             modelContext.insert(newItem)
         }
     }
