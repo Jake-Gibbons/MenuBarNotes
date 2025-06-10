@@ -5,55 +5,55 @@
 //  Created by Jake Gibbons on 10/06/2025.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+  @Environment(\.modelContext) private var modelContext
+  @Query private var items: [Item]
+  @State private var noteText = ""
 
-    var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+  var body: some View {
+    VStack {
+      List {
+        ForEach(items) { item in
+          VStack(alignment: .leading) {
+            Text(item.text)
+            Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .shortened))
+              .font(.caption)
+              .foregroundStyle(.secondary)
+          }
         }
+        .onDelete(perform: deleteItems)
+      }
+      HStack {
+        TextField("New note", text: $noteText)
+        Button("Add") { addItem() }
+          .disabled(noteText.isEmpty)
+      }
+      .padding()
     }
+    .frame(minWidth: 250, minHeight: 300)
+  }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
+  private func addItem() {
+    withAnimation {
+      let newItem = Item(text: noteText)
+      modelContext.insert(newItem)
+      noteText = ""
     }
+  }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+  private func deleteItems(offsets: IndexSet) {
+    withAnimation {
+      for index in offsets {
+        modelContext.delete(items[index])
+      }
     }
+  }
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+  ContentView()
+    .modelContainer(for: Item.self, inMemory: true)
 }
