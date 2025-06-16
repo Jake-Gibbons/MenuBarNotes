@@ -2,7 +2,7 @@ import Cocoa
 import SwiftData
 import SwiftUI
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var statusItem: NSStatusItem!
     var popover: NSPopover?
     var mainWindow: NSWindow?
@@ -86,11 +86,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let window = NSWindow(contentViewController: hosting)
             window.title = "Notes"
             window.setContentSize(NSSize(width: 480, height: 320))
+            window.delegate = self
             mainWindow = window
         }
         NSApp.setActivationPolicy(.regular)
         mainWindow?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        mainWindow = nil
+        NSApp.setActivationPolicy(.accessory)
     }
 }
 
