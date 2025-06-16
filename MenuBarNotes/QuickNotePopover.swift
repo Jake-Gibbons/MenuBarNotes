@@ -13,6 +13,7 @@ struct QuickNotePopover: View {
                 .padding(.bottom, 4)
 
             HStack {
+                Button("Open App") { openApp() }
                 Spacer()
                 Button("Save") { save() }
                     .keyboardShortcut(.return, modifiers: [.command])
@@ -30,6 +31,11 @@ struct QuickNotePopover: View {
         text = ""
         dismiss()
 
+    }
+
+    private func openApp() {
+        NotificationCenter.default.post(name: .openMainWindow, object: nil)
+        dismiss()
     }
 }
 
