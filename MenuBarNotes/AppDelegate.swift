@@ -2,6 +2,7 @@ import Cocoa
 import SwiftData
 import SwiftUI
 
+
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var statusItem: NSStatusItem!
     var popover: NSPopover?
