@@ -14,7 +14,7 @@ struct AddNoteView: View {
       HStack {
         Spacer()
         Button("Save") {
-          let newItem = Item(text: text)
+          let newItem = Item(timestamp: Date(), text: text)
           modelContext.insert(newItem)
           onSave?()
         }
