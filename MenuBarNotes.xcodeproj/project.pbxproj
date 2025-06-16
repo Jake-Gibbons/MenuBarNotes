@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FC978A342DFB0BF200212E65 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = FC978A332DFB0BF200212E65 /* MarkdownUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		FC978A032DF8D1CA00212E65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC978A342DFB0BF200212E65 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = MenuBarNotes;
 			packageProductDependencies = (
+				FC978A332DFB0BF200212E65 /* MarkdownUI */,
 			);
 			productName = MenuBarNotes;
 			productReference = FC9789EF2DF8D1C200212E65 /* MenuBarNotes.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = FC9789E62DF8D1C200212E65;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FC978A322DFB0BF200212E65 /* XCLocalSwiftPackageReference "../../../Downloads/swift-markdown-ui-2.4.1" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FC9789F02DF8D1C200212E65 /* Products */;
 			projectDirPath = "";
@@ -551,6 +560,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		FC978A322DFB0BF200212E65 /* XCLocalSwiftPackageReference "../../../Downloads/swift-markdown-ui-2.4.1" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Downloads/swift-markdown-ui-2.4.1";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FC978A332DFB0BF200212E65 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FC9789E72DF8D1C200212E65 /* Project object */;
 }

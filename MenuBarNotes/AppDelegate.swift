@@ -2,7 +2,8 @@ import Cocoa
 import SwiftData
 import SwiftUI
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var statusItem: NSStatusItem!
     var popover: NSPopover?
     var mainWindow: NSWindow?
@@ -63,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func showMenu() {
         let menu = NSMenu()
         menu.addItem(withTitle: "Open App", action: #selector(openMainWindow), keyEquivalent: "")
-        menu.addItem(withTitle: "Preferences\u{2026}", action: #selector(openSettings), keyEquivalent: ",")
+        menu.addItem(withTitle: "Preferences\u2026", action: #selector(openSettings), keyEquivalent: ",")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Quit", action: #selector(quit), keyEquivalent: "q")
         statusItem.menu = menu
@@ -72,8 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func openSettings() {
-        let selector = Selector(("showPreferencesWindow:"))
-        NSApp.sendAction(selector, to: nil, from: nil)
+        NSApp.sendAction(#selector(NSApplication.showPreferencesWindow), to: nil, from: nil)
     }
 
     @objc private func quit() {
@@ -87,11 +87,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let window = NSWindow(contentViewController: hosting)
             window.title = "Notes"
             window.setContentSize(NSSize(width: 480, height: 320))
+            window.delegate = self
             mainWindow = window
         }
         NSApp.setActivationPolicy(.regular)
         mainWindow?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        mainWindow = nil
+        NSApp.setActivationPolicy(.accessory)
     }
 }
 
