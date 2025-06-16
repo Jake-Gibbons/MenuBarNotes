@@ -11,7 +11,7 @@ import AppKit
 
 @main
 struct MenuBarNotesApp: App {
-    @Environment(\.openWindow) private var openWindow
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -26,30 +26,13 @@ struct MenuBarNotesApp: App {
         }
     }()
 
-    var body: some Scene {
-        WindowGroup(id: "MainWindow") {
-            ContentView()
-        }
-        .modelContainer(sharedModelContainer)
+    init() {
+        appDelegate.container = sharedModelContainer
+    }
 
+    var body: some Scene {
         Settings {
             PreferencesView()
         }
-
-        MenuBarExtra("Quick Note", systemImage: "square.and.pencil") {
-            QuickNotePopover()
-        } menu: {
-            Button("Open Notes") { openWindow(id: "MainWindow") }
-            Button("Preferences\u2026") {
-                if NSApp.responds(to: #selector(NSApplication.showPreferencesWindow)) {
-                    NSApp.sendAction(#selector(NSApplication.showPreferencesWindow), to: nil, from: nil)
-                }
-            }
-            Divider()
-            Button("Quit") { NSApp.terminate(nil) }
-
-        }
-        .menuBarExtraStyle(.window)
-        .modelContainer(sharedModelContainer)
     }
 }
